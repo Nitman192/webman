@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--
+  DOCUMENT TYPE DECLARATION (DOCTYPE)
+  ------------------------------------
+  Why: Browser ko batata hai ki yeh modern HTML5 document hai.
+  What: Isse browser "standards mode" mein render karta hai (old quirks mode nahi).
+  How: Always top line mein likhte hain.
+  Alternative: Purane XHTML/HTML4 doctypes bhi hote the, but modern projects mein <!DOCTYPE html> best hai.
+-->
+<html lang="en">
+  <!--
+    <html> ROOT ELEMENT
+    -------------------
+    Why: Saari HTML content ka parent container.
+    What: lang="en" screen readers aur search engines ko primary language batata hai.
+    Alternative: Agar Hindi-heavy site ho to lang="hi" use kar sakte ho.
+  -->
+  <head>
+    <!--
+      <head> METADATA AREA
+      --------------------
+      Why: User ko directly visible content yahan nahi hota, but page settings yahi define hoti hain.
+      Includes: charset, viewport, title, stylesheets, meta tags.
+    -->
+    <meta charset="UTF-8" />
+    <!--
+      charset="UTF-8"
+      ---------------
+      Why: Text encoding define karta hai.
+      Benefit: Hindi/emoji/special symbols sahi render hote hain.
+      Alternative: UTF-16 etc exist, but UTF-8 web standard hai.
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      VIEWPORT META TAG
+      -----------------
+      Why: Mobile devices pe layout zoomed-out na lage.
+      What: Width device ke equal, initial zoom 1.
+      Without this: Responsive CSS media queries expected result nahi deti.
+    -->
+
+    <title>Smart Learning Hub | Developer's Playground</title>
+    <!--
+      TITLE TAG
+      ---------
+      Browser tab mein dikhne wala naam.
+      SEO (Search Engine Optimization) mein bhi useful.
+    -->
+
+    <link rel="stylesheet" href="styles.css" />
+    <!--
+      EXTERNAL CSS LINK
+      -----------------
+      Why: Styling ko HTML se separate rakhna maintainability ke liye best practice hai.
+      Alternative: <style> tag use kar sakte hain, but large projects mein external file better.
+    -->
+  </head>
+
+  <body>
+    <!--
+      BODY
+      ----
+      User jo visual page dekhता hai wo sab body ke andar hota hai.
+    -->
+
+    <!--
+      ===========================
+      FEATURE TOGGLE CONTROL BAR
+      ===========================
+      Yeh section real-time UI toggles deta hai.
+      Note: Neeche JS/CSS mein code-based toggles bhi diye hain jise comments ke through permanently enable/disable kar sakte ho.
+    -->
+    <header class="top-nav glass-panel" id="top">
+      <!--
+        HEADER + NAV
+        ------------
+        Why: Semantic HTML se structure clear hota hai.
+        class="glass-panel": reusable visual style (glassmorphism effect).
+      -->
+      <a class="brand" href="#top">⚡ Dev Playground</a>
+
+      <button class="menu-toggle" aria-label="Open navigation menu">☰</button>
+      <!--
+        MOBILE MENU BUTTON
+        ------------------
+        Why: Small screens pe nav links collapse ho jate hain.
+        Event listener JS mein add hoga.
+      -->
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#hero">Home</a>
+        <a href="#cards">Modules</a>
+        <a href="#skills">Skills</a>
+        <a href="#lab">Toggle Lab</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO SECTION START -->
+      <section id="hero" class="hero section">
+        <p class="eyebrow">Welcome to your coding journey</p>
+        <h1 class="hero-title">
+          Build, Break, Learn:
+          <span class="gradient-text">Smart Learning Hub</span>
+        </h1>
+        <p class="hero-subtitle">
+          Yeh interactive page aapko HTML, CSS aur JavaScript ka real demo dikhata hai —
+          readable comments ke saath.
+        </p>
+
+        <div class="hero-cta-row">
+          <a class="btn primary" href="#cards">Start Learning</a>
+          <button class="btn ghost" id="surpriseHintBtn">Show Hint</button>
+        </div>
+      </section>
+      <!-- HERO SECTION END -->
+
+      <!-- INTERACTIVE CARDS SECTION START -->
+      <section id="cards" class="section">
+        <h2>Interactive Learning Modules</h2>
+        <p class="section-intro">
+          Cards pe hover karo (desktop) ya tap karo (mobile) to expand effect dekho.
+        </p>
+
+        <div class="card-grid">
+          <article class="learning-card" tabindex="0">
+            <h3>HTML Foundations</h3>
+            <p>Structure, semantic tags, accessibility basics.</p>
+            <ul>
+              <li>Tags vs Elements</li>
+              <li>Forms & Inputs</li>
+              <li>SEO-friendly structure</li>
+            </ul>
+          </article>
+
+          <article class="learning-card" tabindex="0">
+            <h3>CSS Design Systems</h3>
+            <p>Colors, spacing, typography, responsive layout systems.</p>
+            <ul>
+              <li>Flexbox & Grid</li>
+              <li>Animations</li>
+              <li>Theme variables</li>
+            </ul>
+          </article>
+
+          <article class="learning-card" tabindex="0">
+            <h3>JavaScript Interactivity</h3>
+            <p>User actions handle karo: click, scroll, keyboard.</p>
+            <ul>
+              <li>DOM Manipulation</li>
+              <li>Event listeners</li>
+              <li>State handling</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <!-- INTERACTIVE CARDS SECTION END -->
+
+      <!-- SKILLS SHOWCASE START -->
+      <section id="skills" class="section">
+        <h2>Skill Showcase</h2>
+        <p class="section-intro">Progress bars ke through visual learning map.</p>
+
+        <div class="skill-list">
+          <div class="skill-item">
+            <span>HTML Semantics</span>
+            <div class="skill-track"><div class="skill-fill" data-level="92"></div></div>
+          </div>
+          <div class="skill-item">
+            <span>CSS Layouts</span>
+            <div class="skill-track"><div class="skill-fill" data-level="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <span>JavaScript Logic</span>
+            <div class="skill-track"><div class="skill-fill" data-level="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <span>Responsive Design</span>
+            <div class="skill-track"><div class="skill-fill" data-level="88"></div></div>
+          </div>
+        </div>
+      </section>
+      <!-- SKILLS SHOWCASE END -->
+
+      <!-- TOGGLE LAB START -->
+      <section id="lab" class="section">
+        <h2>Feature Toggle Lab</h2>
+        <p class="section-intro">
+          Ye switches visual behavior ko control karte hain. Code ke comments mein permanent toggles bhi diye hain.
+        </p>
+
+        <div class="toggle-grid glass-panel">
+          <label><input type="checkbox" data-toggle="darkMode" checked /> Dark Mode</label>
+          <label><input type="checkbox" data-toggle="animations" checked /> Animations</label>
+          <label><input type="checkbox" data-toggle="threeD" checked /> 3D Effects</label>
+          <label><input type="checkbox" data-toggle="glass" checked /> Glassmorphism</label>
+          <label><input type="checkbox" data-toggle="particles" checked /> Floating Particles</label>
+        </div>
+      </section>
+      <!-- TOGGLE LAB END -->
+    </main>
+
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <!--
+      CANVAS BACKGROUND
+      -----------------
+      Particles animation ke liye use ho raha hai.
+      aria-hidden="true": screen readers is decorative element ko ignore karein.
+    -->
+
+    <div id="easterEgg" class="easter-egg">🎉 Easter Egg unlocked: "You are now in Debug Wizard Mode!"</div>
+    <!--
+      EASTER EGG ELEMENT
+      ------------------
+      Hidden by default. JS isse reveal karega secret key sequence pe.
+    -->
+
+    <script src="script.js"></script>
+    <!--
+      EXTERNAL JAVASCRIPT FILE
+      ------------------------
+      Best practice: JS file body ke end mein link karna so page content pehle load ho jaye.
+    -->
+  </body>
+</html>

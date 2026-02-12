@@ -1,0 +1,369 @@
+/*
+  ==================================================
+  SMART LEARNING HUB - STYLESHEET WITH TEACHING NOTES
+  ==================================================
+  Is file ka goal sirf styling nahi, balki CSS concepts samjhana bhi hai.
+  Har major block mein:
+  - Why likha?
+  - Kya karta hai?
+  - Alternative kya hai?
+*/
+
+/*
+  FEATURE TOGGLE #1: GLOBAL ANIMATIONS MASTER SWITCH (Code-level)
+  ---------------------------------------------------------------
+  Agar aap saari animations disable karna chahte ho:
+  1) Neeche jo --anim-duration variable hai usse 0s kar do.
+  2) Ya, "animation" properties comment out kar do where used.
+  Isse performance-focused static UI milegi.
+*/
+
+:root {
+  /*
+    CSS CUSTOM PROPERTIES (Variables)
+    ---------------------------------
+    Why: Centralized values. Ek jagah change karo, pura theme update.
+    Alternative: Hard-coded colors everywhere (difficult maintenance).
+  */
+  --bg-1: #0f172a;
+  --bg-2: #1e293b;
+  --surface: rgba(255, 255, 255, 0.1);
+  --surface-border: rgba(255, 255, 255, 0.25);
+  --text-main: #e2e8f0;
+  --text-soft: #cbd5e1;
+  --brand-1: #38bdf8;
+  --brand-2: #a78bfa;
+  --success: #34d399;
+  --danger: #fb7185;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --shadow-soft: 0 10px 25px rgba(2, 6, 23, 0.35);
+  --anim-duration: 0.55s;
+  --container-max: 1100px;
+}
+
+/*
+  FEATURE TOGGLE #2: FORCE LIGHT THEME BY DEFAULT
+  -----------------------------------------------
+  Agar aap hamesha light mode default chahte ho:
+  - body ke class attribute mein HTML side par "light" add karo
+  - Ya JS default state darkMode: false kar do
+*/
+body.light {
+  --bg-1: #eff6ff;
+  --bg-2: #dbeafe;
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-border: rgba(148, 163, 184, 0.4);
+  --text-main: #0f172a;
+  --text-soft: #334155;
+}
+
+* {
+  box-sizing: border-box;
+  /*
+    box-sizing: border-box
+    ----------------------
+    Why: Width/height calculation predictable ho jata hai.
+    Alternative content-box mein padding alag add hota hai, beginners ko confusion hoti hai.
+  */
+}
+
+html {
+  scroll-behavior: smooth;
+  /*
+    FEATURE TOGGLE #3: SMOOTH SCROLL
+    --------------------------------
+    Is property ko comment out karoge to jump-scroll hoga.
+    Smooth scroll UX improve karta hai.
+  */
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 10%, #334155 0%, transparent 30%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  overflow-x: hidden;
+}
+
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  /*
+    Canvas background fixed hai so content scroll kare, particles background mein rahein.
+  */
+}
+
+.section {
+  width: min(var(--container-max), 92%);
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-lg);
+  /*
+    FEATURE TOGGLE #4: GLASSMORPHISM
+    --------------------------------
+    Disable karna ho to:
+    - backdrop-filter lines remove/comment.
+    - background ko solid color set kar do.
+    Alternative design: Neumorphism with subtle outer/inner shadows.
+  */
+}
+
+.top-nav {
+  position: sticky;
+  top: 0.8rem;
+  width: min(var(--container-max), 94%);
+  margin: 0.8rem auto 0;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  z-index: 20;
+}
+
+.brand {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  transition: background var(--anim-duration) ease;
+}
+
+.nav-links a:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.menu-toggle {
+  display: none;
+  border: 1px solid var(--surface-border);
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 10px;
+  padding: 0.4rem 0.6rem;
+}
+
+.hero {
+  text-align: center;
+  padding-top: 5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-1);
+  font-weight: 600;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.1;
+  margin: 0.5rem 0;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--success));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle,
+.section-intro {
+  max-width: 720px;
+  margin: 0.4rem auto 0;
+  color: var(--text-soft);
+}
+
+.hero-cta-row {
+  margin-top: 1.8rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--anim-duration) ease, box-shadow var(--anim-duration) ease;
+}
+
+.btn.primary {
+  background: linear-gradient(120deg, var(--brand-1), var(--brand-2));
+  color: white;
+}
+
+.btn.ghost {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text-main);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px rgba(15, 23, 42, 0.3);
+}
+
+.card-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.learning-card {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  transition: transform var(--anim-duration) ease, background var(--anim-duration) ease;
+  transform-style: preserve-3d;
+}
+
+.learning-card h3 {
+  margin-top: 0;
+}
+
+/*
+  FEATURE TOGGLE #5: 3D HOVER EFFECTS
+  -----------------------------------
+  Disable karna ho to niche .three-d-enabled class rules hata do/comment.
+*/
+.three-d-enabled .learning-card:hover,
+.three-d-enabled .learning-card:focus-visible {
+  transform: perspective(900px) rotateX(3deg) rotateY(-4deg) translateY(-6px) scale(1.02);
+  background: rgba(30, 41, 59, 0.65);
+}
+
+.skill-list {
+  margin-top: 1.4rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.skill-item {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.skill-track {
+  height: 12px;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--brand-1), var(--success));
+  border-radius: inherit;
+  transition: width 1.2s ease;
+}
+
+.toggle-grid {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.7rem;
+}
+
+.toggle-grid label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.easter-egg {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  background: rgba(15, 23, 42, 0.9);
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--anim-duration) ease, transform var(--anim-duration) ease;
+  pointer-events: none;
+}
+
+.easter-egg.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+  RESPONSIVE DESIGN BASICS
+  ------------------------
+  Media Query: 특정 screen width pe alternate rules apply.
+  Here: 800px se chhote screens par mobile nav behavior.
+*/
+@media (max-width: 800px) {
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    width: min(94%, 420px);
+    flex-direction: column;
+    padding: 0.8rem;
+    border-radius: 14px;
+    background: rgba(2, 6, 23, 0.95);
+    display: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+}
+
+/*
+  REDUCED MOTION ACCESSIBILITY
+  ----------------------------
+  Jo users motion-sensitive hain unke OS preference ke respect mein animations reduce ki jati hain.
+*/
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
